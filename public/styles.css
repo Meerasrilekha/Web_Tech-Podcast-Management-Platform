@@ -1,0 +1,238 @@
+/* General body styling */
+body {
+  background: linear-gradient(135deg, #1e1e2f 0%, #34343f 100%);
+  background-attachment: fixed;
+  animation: backgroundAnimation 10s ease infinite;
+  color: #fff;
+  font-family: 'Poppins', sans-serif;
+  height: 100vh;
+  display: flex;
+  flex-direction: column; /* Change to column to stack content */
+  justify-content: center;
+  align-items: center;
+  margin: 0;
+  padding: 40px; /* Increased padding for better spacing */
+}
+
+/* Keyframes for background animation */
+@keyframes backgroundAnimation {
+  0% { background-color: #1e1e2f; }
+  50% { background-color: #34343f; }
+  100% { background-color: #1e1e2f; }
+}
+
+/* Navbar styling for login button */
+.navbar {
+  position: absolute;
+  top: 20px;
+  right: 30px;
+  z-index: 1; /* Ensure navbar is above the background */
+}
+
+/* Headings and text */
+h1 {
+  font-size: 3.5rem;
+  font-weight: 700;
+  color: #f18cff;
+  margin-bottom: 20px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7); /* Add text shadow */
+}
+
+.lead {
+  font-size: 1.5rem;
+  margin-bottom: 30px;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5); /* Add text shadow */
+}
+
+/* Image Container */
+.image-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('Guide-to-Podcast-Art-Images-Podcast-Covers.webp'); /* Set background image */
+  background-size: cover; /* Make the image cover the entire area */
+  background-position: center; /* Center the background image */
+  z-index: -1; /* Place it behind other content */
+}
+
+/* Welcome Container */
+.welcome-container {
+  background-color: rgba(40, 41, 61, 0.9);
+  padding: 50px;
+  border-radius: 15px;
+  max-width: 700px;
+  text-align: center;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+  flex-grow: 1; /* Allows the container to grow and take up space */
+  position: relative; /* For absolute positioning of content */
+  margin-bottom: 40px; /* Add space below the container */
+  z-index: 1; /* Ensure the container is above the background image */
+}
+
+/* Add animated border */
+.welcome-container::before {
+  content: '';
+  position: absolute;
+  top: -5px;
+  left: -5px;
+  right: -5px;
+  bottom: -5px;
+  border: 2px solid #f18cff;
+  border-radius: 20px;
+  z-index: -1; /* Send border behind the container */
+  animation: borderAnimation 3s infinite alternate; /* Animation effect */
+}
+
+/* Border animation keyframes */
+@keyframes borderAnimation {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1.05);
+    opacity: 0.8;
+  }
+}
+
+/* Card styling */
+.card {
+  background-color: rgba(50, 50, 70, 0.8);
+  border: none;
+  border-radius: 10px;
+  margin: 10px; /* Add some space between cards */
+  padding: 20px;
+  flex: 1; /* Allow cards to grow equally */
+  background: transparent;
+  width: 200px;
+  text-align: center;
+  transition: transform 0.3s ease; /* Add smooth transition */
+}
+
+.card:hover {
+  transform: scale(1.05);
+}
+
+/* Button styling */
+.btn-group {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-bottom: 40px;
+}
+
+/* Buttons with shadow and hover effect */
+.btn {
+  padding: 15px 30px;
+  font-size: 1.2rem;
+  border-radius: 30px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease-in-out;
+  display: block;
+  margin: auto;
+}
+
+.btn-primary {
+  background-color: #007bff;
+  border: none;
+}
+
+.btn-success {
+  background-color: #28a745;
+  border: none;
+}
+
+.btn:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+}
+
+/* Description styling */
+.description {
+  margin-top: 10px;
+  font-size: 0.9rem;
+  color: #ccc;
+}
+
+/* Hero image styling */
+.landing-image {
+  width: 100%; /* Make image responsive */
+  max-width: 600px; /* Max width for large screens */
+  border-radius: 15px;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+  transition: transform 0.3s ease-in-out;
+  position: absolute; /* Position as background */
+  top: 0;
+  left: 0;
+  z-index: -1; /* Send image behind content */
+}
+
+.landing-image:hover {
+  transform: scale(1.05);
+}
+
+/* Media queries for responsive design */
+@media (max-width: 600px) {
+  .welcome-container {
+    padding: 30px; /* Reduce padding on small screens */
+  }
+
+  .navbar {
+    position: relative; /* Make navbar relative on small screens */
+    top: auto;
+    right: auto;
+  }
+
+  .btn-group {
+    flex-direction: column; /* Stack buttons vertically */
+    align-items: center; /* Center buttons */
+  }
+}
+
+@media (max-width: 768px) {
+  h1 {
+    font-size: 2.5rem; /* Smaller font for mobile */
+  }
+
+  .lead {
+    font-size: 1.2rem; /* Smaller font for mobile */
+  }
+
+  .welcome-container {
+    padding: 30px; /* Less padding on smaller screens */
+  }
+
+  .btn {
+    padding: 10px 20px; /* Adjust button size */
+    font-size: 1rem; /* Adjust font size */
+  }
+
+  .landing-image {
+    margin-top: 20px; /* Reduce margin for mobile */
+  }
+}
+
+@media (max-width: 576px) {
+  h1 {
+    font-size: 2rem; /* Even smaller font for very small screens */
+  }
+
+  .lead {
+    font-size: 1rem; /* Adjust lead text */
+  }
+
+  .welcome-container {
+    padding: 20px; /* Minimal padding */
+  }
+
+  .btn-group {
+    flex-direction: column; /* Stack buttons vertically on small screens */
+    gap: 10px; /* Reduce gap */
+  }
+
+  .landing-image {
+    margin-top: 15px; /* Adjust margin */
+  }
+}

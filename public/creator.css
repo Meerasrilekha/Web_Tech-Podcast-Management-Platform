@@ -1,0 +1,192 @@
+/* General styling */
+body {
+    background-color: #1e1e2f;
+    color: #fff;
+    font-family: 'Montserrat', sans-serif; /* Fixed typo here */
+    margin: 0;
+    display: flex;
+}
+
+/* Sidebar */
+.sidebar {
+    width: 250px;
+    height: 100vh;
+    background-color: #2d2d3b;
+    position: fixed;
+    top: 0;
+    left: 0;
+    padding: 20px;
+}
+
+.sidebar h2 {
+    color: #f18cff;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.sidebar ul {
+    list-style: none;
+    padding: 0;
+}
+
+.sidebar ul li {
+    margin: 20px 0;
+}
+
+.sidebar ul li a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 16px;
+    display: block;
+    padding: 10px 15px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.sidebar ul li a:hover {
+    background-color: #f18cff;
+    color: #fff;
+}
+
+/* Main Content */
+.main-content {
+    margin-left: 250px;
+    padding: 20px;
+    width: 100%;
+}
+
+.section-title {
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 20px;
+}
+
+/* Search Bar */
+.search-bar {
+    margin-bottom: 30px; /* Added margin for spacing */
+    display: flex; /* Use flex for alignment */
+    justify-content: center; /* Center align the search bar */
+}
+
+.search-bar input {
+    width: 80%; /* Adjusted width for better spacing */
+    padding: 10px 15px; /* Added horizontal padding for better spacing */
+    border-radius: 8px;
+    border: none;
+    background-color: #34343f; /* Dark background */
+    color: #fff; /* White text color */
+    font-size: 16px; /* Increased font size */
+    transition: background-color 0.3s ease; /* Transition effect */
+}
+
+.search-bar input::placeholder {
+    color: #a6a6a6; /* Light color for placeholder text */
+}
+
+.search-bar input:focus {
+    outline: none; /* Remove default outline */
+    background-color: #47474f; /* Slightly lighter background on focus */
+}
+
+.search-bar input:hover {
+    background-color: #47474f; /* Change background color on hover */
+}
+
+/* Podcast Cards */
+.featured-podcasts {
+    margin-bottom: 40px;
+}
+
+.podcast-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+}
+
+.podcast-card {
+    background-color: #2d2d3b;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    transition: transform 0.3s ease;
+}
+
+.podcast-card:hover {
+    transform: translateY(-10px);
+}
+
+.podcast-card img {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 10px;
+    margin-bottom: 15px;
+}
+
+.podcast-card h4 {
+    font-size: 18px;
+    margin-bottom: 5px;
+}
+
+.podcast-card p {
+    font-size: 14px;
+    color: #a6a6a6;
+}
+
+/* Media Queries for Responsiveness */
+@media (max-width: 768px) {
+    .sidebar {
+        width: 200px;
+    }
+    
+    .main-content {
+        margin-left: 200px;
+    }
+
+    .section-title {
+        font-size: 20px;
+    }
+
+    .search-bar input {
+        width: 90%;
+    }
+
+    .podcast-card h4 {
+        font-size: 16px;
+    }
+
+    .podcast-card p {
+        font-size: 12px;
+    }
+}
+
+@media (max-width: 576px) {
+    .sidebar {
+        width: 150px; /* Reduce sidebar width on smaller screens */
+    }
+    
+    .main-content {
+        margin-left: 150px; /* Adjust main content margin */
+    }
+
+    .section-title {
+        font-size: 18px; /* Smaller title size */
+    }
+
+    .search-bar input {
+        width: 100%; /* Full width on small screens */
+    }
+
+    .podcast-card {
+        padding: 15px; /* Reduced padding */
+    }
+
+    .podcast-card h4 {
+        font-size: 14px; /* Smaller font size */
+    }
+
+    .podcast-card p {
+        font-size: 10px; /* Smaller font size */
+    }
+}

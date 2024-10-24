@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PodStream | Client Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="client.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+    <style>
+        body {
+            background-color: black;
+            color: white;
+        }
+        .podcast-card {
+            position: relative;
+            overflow: hidden; /* Ensures zoom effect does not overflow */
+        }
+        .video-player {
+            width: 100%;
+            transition: transform 0.3s; /* Smooth transition for zoom effect */
+        }
+        .podcast-card:hover .video-player {
+            transform: scale(1.1); /* Zoom in on hover */
+        }
+    </style>
+</head>
+<body>
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <h2><i class=""></i> PODCAST</h2>
+        <ul>
+            <li><a href="#" onclick="showSection('dashboard')"><i class="fas fa-home"></i> Dashboard</a></li>
+            <li><a href="#" onclick="showSection('favourites')"><i class="fas fa-heart"></i> Favourites</a></li>
+        </ul>
+    </div>
+
+    <!-- Main content -->
+    <div class="main-content">
+        <div class="account-details">
+            <span>Welcome, <strong>Username</strong></span>
+        </div>
+
+        <!-- Dashboard Section -->
+        <section id="dashboard" class="content-section">
+            <h2 class="section-title">Welcome to Podcast!</h2>
+            <!-- Featured Podcasts -->
+            <div class="featured-podcasts">
+                <h3>Featured Podcasts</h3>
+                <div class="podcast-grid" id="videoContainer"></div>
+            </div>
+            <!-- Top Categories -->
+            <div class="top-categories">
+                <h3>Explore Categories</h3>
+                <div class="category-grid">
+                    <a href="tech.html" class="category-link" style="text-decoration: none;">
+                        <div class="category-card" style="color: rgb(16, 12, 5); background-color: #FF6B6B;">Technology</div>
+                    </a>
+                    <a href="health-fitness.html" class="category-link" style="text-decoration: none;">
+                        <div class="category-card" style="color: rgb(16, 12, 5); background-color: #FF9F6B;">Health & Fitness</div>
+                    </a>
+                    <a href="comedy.html" class="category-link" style="text-decoration: none;">
+                        <div class="category-card" style="color: rgb(16, 12, 5); background-color: #6BFFB5;">Comedy</div>
+                    </a>
+                    <a href="news.html" class="category-link" style="text-decoration: none;">
+                        <div class="category-card" style="color: rgb(16, 12, 5); background-color: #6BCAFF;">News</div>
+                    </a>
+                    <a href="business.html" class="category-link" style="text-decoration: none;">
+                        <div class="category-card" style="color: rgb(16, 12, 5); background-color: #FF6BE3;">Business</div>
+                    </a>
+                    <a href="true-crime.html" class="category-link" style="text-decoration: none;">
+                        <div class="category-card" style="color: rgb(16, 12, 5); background-color: #FFD36B;">True Crime</div>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Recommended Podcasts -->
+            <div class="recommended-podcasts">
+                <h3>Recommended For You</h3>
+                <div class="podcast-grid">
+                    <div class="podcast-card">
+                        <img src="creative-minimalist-banner-template_23-2148813661.jpg" alt="Podcast 6">
+                        <h4>Planet Money</h4>
+                        <p>Host: NPR</p>
+                    </div>
+                    <div class="podcast-card">
+                        <img src="creative-before-after-background-template_23-2149201141.jpg" alt="Podcast 7">
+                        <h4>Hardcore History</h4>
+                        <p>Host: Dan Carlin</p>
+                    </div>
+                    <div class="podcast-card">
+                        <img src="creative-modern-trixie-twitter-post_23-2149021608.jpg" alt="Podcast 8">
+                        <h4>The Moth</h4>
+                        <p>Host: Various</p>
+                    </div>
+                    <div class="podcast-card">
+                        <img src="world-mental-health-day-youtube-cover-template_23-2149629254.jpg" alt="Podcast 9">
+                        <h4>Happier with Gretchen Rubin</h4>
+                        <p>Host: Gretchen Rubin</p>
+                    </div>
+                    <div class="podcast-card">
+                        <img src="podcast-template-design_23-2151537116.jpg" alt="Podcast 10">
+                        <h4>99% Invisible</h4>
+                        <p>Host: Roman Mars</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Favourites Section -->
+        <section id="favourites" class="content-section">
+            <h2 class="section-title">Favourites</h2>
+            <div id="favoritesContainer" class="podcast-grid"></div>
+        </section>
+
+        <!-- Premium Section -->
+        <section id="premium" class="content-section">
+            <h2 class="section-title">Premium</h2>
+            <p>Explore premium podcast content and features here.</p>
+        </section>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        // Fetch account info and update the navbar
+        $.get('/account', function(data) {
+            if (data && data.email) {
+                $('.account-details span').html('Welcome, <strong>' + data.email + '</strong>');
+            } else {
+                $('.account-details span').html('Welcome, <strong>Guest</strong>');
+            }
+        }).fail(function() {
+            $('.account-details span').html('Welcome, <strong>Guest</strong>');
+        });
+
+        $(document).ready(function () {
+            // Fetch videos from the server
+            $.get('/videos', function (data) {
+                if (data.length > 0) {
+                    data.forEach(function (file) {
+                        $('#videoContainer').append(`
+                            <div class="podcast-card">
+                                <video class="video-player" controls data-id="${file._id}" onclick="incrementViewCount(this)">
+                                    <source src="/video/${file._id}" type="video/mp4">
+                                    Your browser does not support the video tag.
+                                </video>
+                                <i class="far fa-heart favorite-icon" data-id="${file._id}" onclick="toggleFavorite(this)"></i>
+                                <h4>${file.filename}</h4>
+                                <p>Uploaded Video</p>
+                            </div>
+                        `);
+                    });
+                } else {
+                    $('#videoContainer').append('<p>No videos available.</p>');
+                }
+            }).fail(function () {
+                $('#videoContainer').append('<p>Error fetching videos.</p>');
+            });
+        });
+
+        const favorites = [];
+
+        function toggleFavorite(icon) {
+            const videoId = $(icon).data('id');
+            if (favorites.includes(videoId)) {
+                favorites.splice(favorites.indexOf(videoId), 1);
+                $(icon).removeClass('fas').addClass('far');
+            } else {
+                favorites.push(videoId);
+                $(icon).removeClass('far').addClass('fas');
+            }
+        }
+
+        function showFavorites() {
+            $('#favoritesContainer').empty();
+            favorites.forEach(function (videoId) {
+                $('#favoritesContainer').append(`
+                    <div class="podcast-card">
+                        <video class="video-player" controls>
+                            <source src="/video/${videoId}" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
+                        <h4>${videoId}</h4>
+                        <p>Favorited Video</p>
+                    </div>
+                `);
+            });
+
+            if (favorites.length === 0) {
+                $('#favoritesContainer').append('<p>No favorites added.</p>');
+            }
+        }
+
+        function showSection(sectionId) {
+            $('.content-section').hide();
+            $('#' + sectionId).show();
+            if (sectionId === 'favourites') {
+                showFavorites();
+            }
+        }
+
+        function incrementViewCount(videoElement) {
+            const videoId = $(videoElement).data('id');
+            // AJAX call to increment view count on the server
+            $.post(`/increment-view/${videoId}`, function (response) {
+                console.log('View count updated:', response);
+            });
+        }
+
+        showSection('dashboard');
+    </script>
+</body>
+</html>
